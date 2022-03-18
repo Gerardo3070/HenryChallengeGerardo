@@ -3,7 +3,7 @@
 
 def ListaDivisibles(numero, tope):
     '''
-    Esta función devuelve una lista ordenada de menor a mayor con los números divisibles 
+    Esta  función devuelve una lista ordenada de menor a mayor con los números divisibles 
     por el parámetro número entre uno (1) y el valor del parámetro "tope"
     Recibe dos argumentos:
         numero: Numero entero divisor
@@ -14,7 +14,12 @@ def ListaDivisibles(numero, tope):
         ListaDivisibles(7,50) debe retornar [7,14,21,28,35,42,49]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    lista=[]
+    for i in range((tope)):
+        if (i+1)%numero==0:
+            lista.append(i+1)
+
+    return lista
 
 def Exponente(numero, exponente):
     '''
@@ -26,7 +31,8 @@ def Exponente(numero, exponente):
         Exponente(10,3) debe retornar 1000
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    exp=numero**exponente
+    return exp
 
 def ListaDeListas(lista):
     '''
@@ -42,7 +48,20 @@ def ListaDeListas(lista):
         ListaDeListas([[1,2,[3]],[4]]) debe retornar [1,2,3,4]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    if type(lista) != list:
+        return None
+    else:
+        lista_final=[]
+        for elem in lista:
+            if isinstance(elem, list):
+                lista_final.extend(ListaDeListas(elem))
+            else:
+                lista_final.append(elem)
+        return lista_final
+
+
+
+    #return 'Funcion incompleta'
 
 def Factorial(numero):
     '''
@@ -56,7 +75,15 @@ def Factorial(numero):
         Factorial(0) debe retornar 1
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    if (type(numero) != int):
+        return None
+    if (numero < 0):
+        return None
+    factorial = 1
+    for n in range(1, (numero)+1):
+        factorial = factorial * n
+    return factorial
+    #return 'Funcion incompleta'
 
 def ListaPrimos(desde, hasta):
     '''
@@ -74,7 +101,28 @@ def ListaPrimos(desde, hasta):
         ListaPrimos(1,7) debe retonan [1,2,3,5,7]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    lista=[]
+    if (type(desde) != int or type(hasta) != int):
+        return None
+    if (desde < 0 or hasta < 0):
+        return None
+    if (desde > hasta):
+        return lista    
+    def esPrimo(num):
+        if num==2:
+            return True
+        for n in range (2,num):
+            if(num%n!=0):
+                continue
+            else:
+                return False
+        return True
+    for i in range(desde,(hasta+1)):
+        if esPrimo(i):
+            lista.append(i)
+
+    return lista    
+    
 
 def ListaRepetidos(lista):
     '''
@@ -92,7 +140,17 @@ def ListaRepetidos(lista):
         ListaRepetidos([1,2,2,4]) debe retornar [(1,1),(2,1),(4,1)]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    l=[]
+    if type(lista) != list:
+        return None
+    while len(lista)>0:
+        elemento=lista[0]
+        cuenta=lista.count(lista[0])
+        l.append((elemento,cuenta))
+        for i in range(lista.count(lista[0])):
+            lista.remove(elemento)
+            continue
+    return l
 
 def ClaseVehiculo(tipo, color):
     '''
@@ -116,7 +174,26 @@ def ClaseVehiculo(tipo, color):
         a.Acelerar(-10) -> debe devolver 15
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    class Vehiculo:
+        def __init__(self, tipo, color):
+            if (tipo=='auto' or tipo =='camioneta' or tipo=='moto'):
+                self.Tipo = tipo
+            else:
+                raise TypeError ('el tipo de vehículo tiene que ser auto, camioneta o moto')
+            self.Color = color
+            self.Velocidad = 0
+
+        def Acelerar(self, acel):
+            self.Velocidad += acel
+            if self.Velocidad < 0:
+                self.Velocidad=0
+            if self.Velocidad>100:
+                self.Velocidad=100
+            return self.Velocidad
+    
+    a = Vehiculo(tipo, color)    
+    return a
+
 
 def OrdenarDiccionario(diccionario_par, clave, descendente=True):
     '''
@@ -145,4 +222,13 @@ def OrdenarDiccionario(diccionario_par, clave, descendente=True):
                                                                 'clave3':[3,2,1]}
     '''
     #Tu código aca:
-    return 'Funcion incompleta'   
+    if type(diccionario_par) != dict:
+        return None
+    diccion_lista=[]
+    diccion_lista=list(diccionario_par.keys())
+    if clave not in diccion_lista:
+        return None
+    for key, value in diccionario_par.items():
+        value.sort(reverse=descendente)
+    
+    return diccionario_par   
